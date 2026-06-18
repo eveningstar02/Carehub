@@ -1,4 +1,4 @@
-CareHub
+
 CareHub is a digital platform built to improve the management and distribution of menstrual health resources. The system provides a centralized solution for NGOs, schools, community organizations, donors, and volunteers to track sanitary pad inventory, distributions, beneficiaries, and outreach activities.
 
 This project is actively under development. Core functionality has been implemented, while additional features, optimizations, testing, and deployment are still in progress.
