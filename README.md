@@ -1,18 +1,60 @@
+# CareHub
 
-CareHub is a digital platform built to improve the management and distribution of menstrual health resources. The system provides a centralized solution for NGOs, schools, community organizations, donors, and volunteers to track sanitary pad inventory, distributions, beneficiaries, and outreach activities.
+Flutter (Dart) app for **sanitary pad donation and distribution tracking**, backed by **Supabase**.
 
-This project is actively under development. Core functionality has been implemented, while additional features, optimizations, testing, and deployment are still in progress.
+## Features
 
-Key Features
- Inventory and stock management
- Donation tracking and monitoring
- School and community management
- Volunteer coordination
- Distribution reporting and analytics
- QR code integration for verification and tracking
- Real-time data synchronization
- Location-based service support
- Secure user authentication and role management
- 
-Mission
-CareHub aims to increase accountability, transparency, and efficiency in menstrual health programs while ensuring that sanitary products reach the people who need them most.
+| Area | Data tracked |
+|------|----------------|
+| Inventory | Brand, type, absorbency, disposable/reusable, color, packet size, stock, batch, expiry, location, cost |
+| Donations | Donor, contact, date, quantity, type, notes |
+| Beneficiaries | Unique ID, age group, school/community, optional contact (with consent) |
+| Distribution | Date, recipient, quantity, brand, volunteer, location, notes |
+| Schools & communities | Name, location, contact, girls served |
+| Volunteers | Name, contact, role, activities |
+| Stock alerts | Low stock, out of stock, expiry warnings |
+| Finances | Donations, purchases, expenses, balance |
+| Impact | Totals donated/distributed, girls supported, schools/communities reached |
+
+## Setup
+
+1. **Flutter** 3.16+ and Dart 3.11+
+
+2. **Install dependencies**
+
+   ```bash
+   flutter pub get
+   ```
+
+3. Supabase
+
+    Create a project at [supabase.com](https://supabase.com)
+    Run `supabase/migrations/001_initial_schema.sql` in the SQL editor
+    Optionally run `supabase/seed_sample_data.sql` for sample rows
+   Copy `.env.example` to `.env` and set `SUPABASE_URL` and `SUPABASE_ANON_KEY`
+
+4. Run
+
+   bash
+   flutter run
+   
+
+The app requires Supabase credentials in `.env`. Use Settings → Refresh all data to reload from the database.
+
+Architecture
+
+
+lib/
+  core/          theme, config, enums, QR
+  data/
+    models/       Dart models (fromJson / toJson)
+    supabase/     Supabase client
+    repositories/ CRUD per table
+    services/     impact metrics, QR lookup
+  features/       UI screens
+  providers/      Riverpod
+
+
+ Privacy
+
+Store beneficiary **contact details only when `contactConsentGiven` is true. Prefer opaque `uniqueId` values over names in the field.
